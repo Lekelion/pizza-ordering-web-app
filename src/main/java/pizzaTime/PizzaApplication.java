@@ -65,7 +65,7 @@ public class PizzaApplication {
             PizzaSizeRepo sizeRepo,
             PizzaCrustRepo crustRepo) {
         return (args) -> {
-            Customer c = customerRepo.findByUsername("Chris");
+            Customer c = customerRepo.findByUsername(LoginService.autoLoginUser.getUsername());
             if (c == null) return;
             if (!orderRepo.findByCustomerId(c.getId()).isEmpty()) return;
 
