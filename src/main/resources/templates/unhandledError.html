@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Error Handler</title>
+</head>
+<body>
+<header th:insert="~{fragments/nav.html}"></header>
+<h3>An Unhandled exception occurred</h3>
+<br>
+<table>
+    <tr> <td>URI</td> <td> <span th:text="${URI}" /> </td> </tr>
+    <tr> <td>Method</td> <td> <span th:text="${Method}" /> </td> </tr>
+    <tr> <td>Exception</td> <td> <span th:text="${Exception}" /> </td> </tr>
+    <tr> <td>ErrorMessage</td> <td> <span th:text="${ErrorMessage}" /> </td> </tr>
+</table>
+</body>
+</html>

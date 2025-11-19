@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pepperoni Pizza Shop</title>
+    <style>
+        .error { font-style: italic; color:red }
+    </style>
+</head>
+<body>
+<header th:insert="fragments/nav.html"></header>
+<!--/*@thymesVar id="customer" type="pizzaTime.entities.Customer"*/-->
+<form method="post" th:object="${login}">
+    <table>
+        <tr>
+            <td>User Name:</td>
+            <td><input type="text" th:field="*{username}" autofocus required></td>
+        </tr>
+        <tr><td class="error" colspan="2" th:errors="*{username}"></td></tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" th:field="*{password}" required></td>
+        </tr>
+        <tr><td></td><td><input type="submit" value="Login"></td>
+    </table>
+</form>
+</body>
+</html>

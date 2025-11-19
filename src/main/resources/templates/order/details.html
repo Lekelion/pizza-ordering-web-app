@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pepperoni Pizza Shop</title>
+</head>
+<body>
+<header th:insert="~{fragments/nav.html}"></header>
+<div th:object="${order}">
+    <!-- TODO: Step 2 - this page needs to be completed -->
+    Order #:    <span th:text="${order.id}"></span><br>
+    Status:     <span th:text="${order.orderStatus}"></span>
+</div>
+</body>
+</html>

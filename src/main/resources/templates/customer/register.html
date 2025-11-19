@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pepperoni Pizza Shop</title>
+    <style>
+        .error { font-style: italic; color:red }
+    </style>
+</head>
+<body>
+<header th:insert="~{fragments/nav.html}"></header>
+<!--/*@thymesVar id="customer" type="pizzaTime.viewModels.RegisterViewModel"*/-->
+<form method="post" th:object="${customer}">
+    <table>
+        <tr><td>User Name:</td><td><input type="text" th:field="*{username}" autofocus></td></tr>
+        <tr><td class="error" colspan="2" th:errors="*{username}"></td></tr>
+
+        <tr><td>EMail:</td><td><input type="email" th:field="*{email}"></td></tr>
+        <tr><td class="error" colspan="2" th:errors="*{email}"></td></tr>
+
+        <tr><td>Password1:</td><td><input type="password" th:field="*{password}"></td></tr>
+        <tr><td class="error" colspan="2" th:errors="*{password}"></td></tr>
+
+        <tr><td>Password2:</td><td><input type="password" th:field="*{password2}"></td></tr>
+        <tr><td class="error" colspan="2" th:errors="*{password2}"></td></tr>
+
+        <tr><td>Address1:</td><td><input type="text" th:field="*{address1}"></td></tr>
+        <tr><td class="error" colspan="2" th:errors="*{address1}"></td></tr>
+
+        <tr><td>Address2:</td><td><input type="text" th:field="*{address2}" ></td></tr>
+        <tr><td class="error" colspan="2" th:errors="*{address2}"></td></tr>
+
+        <tr><td>City:</td><td><input type="text" th:field="*{city}"></td></tr>
+        <tr><td class="error" colspan="2" th:errors="*{city}"></td></tr>
+
+        <tr><td>Province:</td><td><input type="text" th:field="*{province}"></td></tr>
+        <tr><td class="error" colspan="2" th:errors="*{province}"></td></tr>
+
+        <tr><td>Postal Code:</td><td><input type="text" th:field="*{postalCode}"  style="text-transform: uppercase;"></td></tr>
+        <tr><td class="error" colspan="2" th:errors="*{postalCode}"></td></tr>
+
+        <tr><td></td><td><input type="submit" value="Register"></td>
+    </table>
+</form>
+</body>
+</html>

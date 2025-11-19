@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pepperoni Pizza Shop</title>
+</head>
+<body>
+<header th:insert="fragments/nav.html"></header>
+<h3>Order History</h3>
+<!-- TODO: Step 2 - this table needs to be completed -->
+<table>
+    <tr>
+        <th>Order#</th>
+        <th>Status</th>
+    </tr>
+    <!--/*@thymesVar id="orders" type="List<pizzaTime.entities.CustomerOrder>"*/-->
+    <tr th:each="o : ${orders}">
+        <td th:text="${o.id}"></td>
+        <td th:text="${o.orderStatus}"></td>
+    </tr>
+</table>
+</body>
+</html>

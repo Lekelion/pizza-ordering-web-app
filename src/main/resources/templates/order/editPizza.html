@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pepperoni Pizza Shop</title>
+</head>
+<body>
+<header th:insert="fragments/nav.html"></header>
+
+<!--/*@thymesVar id="pizza" type="pizzaTime.entities.CustomerPizza"*/-->
+<form th:action="@{/order/{o}/updatePizza (o=${order.id})}" method="post" th:object="${pizza}">
+    <input type="hidden" th:field="*{id}">
+    <div>
+        <label>Quantity:</label>
+        <input th:field="*{quantity}" type="number" required autofocus>
+    </div>
+    <div>
+        <label>Pizza Size:</label>
+    <select th:field="*{pizzaSize}" required>
+        <option value="">Select Size</option>
+        <option th:each="s : ${PizzaSizes}"
+                th:value="${s.id}"
+                th:text="${s.name + ' (' + #numbers.formatCurrency(s.price) + ')'}"
+                th:selected="${pizza.pizzaSize != null && pizza.pizzaSize.id == s.id}">
+        </option>
+    </select>
+    </div>
+    <div>
+        <label>Pizza Crust:</label>
+        <select th:field="*{pizzaCrust}" required>
+            <option value="">Select Crust</option>
+            <option th:each="c : ${PizzaCrusts}"
+                    th:value="${c.id}"
+                    th:text="${c.name + ' (' + #numbers.formatCurrency(c.price) + ')'}"
+                    th:selected="${pizza.pizzaCrust != null && pizza.pizzaCrust.id == c.id}">
+            </option>
+        </select>
+    </div>
+    <br>
+    <input type="submit" value="Update">
+</form>
+</body>
+</html>

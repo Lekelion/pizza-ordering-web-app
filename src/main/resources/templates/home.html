@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pepperoni Pizza Shop</title>
+</head>
+<body>
+<header th:insert="~{fragments/nav.html}"></header>
+<div th:unless="${user == null}">
+    Welcome <span th:text="${user.username}"></span>!<br>
+    <br>
+    <a th:href="@{/order/create}">Place an Order !</a><br>
+    <a th:href="@{/order/history}">Order History</a><br>
+    <a th:href="@{/profile}">Edit Profile</a><br>
+</div>
+</body>
+</html>

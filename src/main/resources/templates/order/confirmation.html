@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pepperoni Pizza Shop</title>
+    <style>
+        .error {font-style: italic;color: red}
+    </style>
+</head>
+<body>
+<header th:insert="~{fragments/nav.html}"></header>
+
+<!--/*@thymesVar id="order" type="pizzaTime.entities.CustomerOrder"*/-->
+<div>
+    <!-- TODO: Step 6 - this page needs to be completed -->
+    <form method="post" th:object="${order}">
+        <div>
+        Order #:<span th:text="*{id}"></span>
+        </div>
+        <div>
+            <label class="label">Tip:</label>
+        </div>
+        <div>
+            <label class="label">Payment:</label>
+        </div>
+        <div>
+            <label class="label">Delivery:</label>
+        </div>
+        <br>
+        <input type="submit" value="Submit your order">
+
+        <input type="hidden" th:field="*{id}">
+        <!-- for validation to work properly, any fields include above need to included as 'hidden' -->
+        <input type="hidden" th:field="*{subTotal}">
+        <input type="hidden" th:field="*{hst}">
+        <input type="hidden" th:field="*{grandTotal}">
+    </form>
+</div>
+</body>
+</html>
