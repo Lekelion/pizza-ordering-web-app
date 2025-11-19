@@ -9,7 +9,7 @@ public class PizzaCrust {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true, nullable = false, length = 16)
+    @Column(unique = true, nullable = false, length = 24)
     private String name;
 
     @Column(name = "price", nullable = false, precision = 8, scale = 2)
