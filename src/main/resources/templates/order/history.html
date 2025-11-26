@@ -12,11 +12,22 @@
     <tr>
         <th>Order#</th>
         <th>Status</th>
+        <th>Date</th>
+        <th># Pizzas</th>
+        <th>Grand Total</th>
+        <th>Actions</th>
     </tr>
     <!--/*@thymesVar id="orders" type="List<pizzaTime.entities.CustomerOrder>"*/-->
     <tr th:each="o : ${orders}">
         <td th:text="${o.id}"></td>
         <td th:text="${o.orderStatus}"></td>
+        <td th:text="${#temporals.format(o.orderDate, 'dd MMM yyyy')}"></td>
+        <td th:text="${o.pizzaCount}"></td>
+        <td th:text="${#numbers.formatCurrency(o.grandTotal)}"></td>
+        <td>
+            <a th:href="@{/order/{id}(id=${o.id})}">View</a>
+            <a th:href="@{/order/{id}/edit(id=${o.id})}" th:if="${o.new}">Edit</a>
+        </td>
     </tr>
 </table>
 </body>

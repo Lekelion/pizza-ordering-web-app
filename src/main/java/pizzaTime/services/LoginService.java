@@ -93,7 +93,7 @@ public class LoginService {
     static boolean bFirst = true;
     public static final Customer autoLoginUser =
             //TODO: Step 1 - enter your own user name & password here
-            new Customer("Chris", "$2a$10$jfcHxy7gAqOw..bA3XW2Ku4Lhwkz7VamLWVEvQO3qFBkiD17cWXcu");
+            new Customer("Leke", "$2a$10$vZrNu/Ngh0FsFX2zhkspf.T09MOaU8nRf3rXoeC2SJ0h6WzXrzz9O");
     private int getUserId() {
         // auto-login user=Chris
         if (bFirst) {

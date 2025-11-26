@@ -10,6 +10,41 @@
     <!-- TODO: Step 2 - this page needs to be completed -->
     Order #:    <span th:text="${order.id}"></span><br>
     Status:     <span th:text="${order.orderStatus}"></span>
+    Type:       <span th:text="${order.orderType}"></span><br>
+    Order Date: <span th:text="${#temporals.format(order.orderDate, 'dd MMM yyyy')}"></span><br>
+    <span th:if="${order.pickupTime != null}">
+        Pickup: <span th:text="${#temporals.format(order.pickupTime, 'HH:mm')}"></span><br>
+    </span>
+    #Pizzas:    <span th:text="${order.pizzaCount}"></span><br>
+    <br>
+
+    Sub Total:  <span th:text="${#numbers.formatCurrency(order.subTotal)}"></span><br>
+    HST:        <span th:text="${#numbers.formatCurrency(order.hst)}"></span><br>
+    Grand Total: <span th:text="${#numbers.formatCurrency(order.grandTotal)}"></span><br>
+    Tip:        <span th:text="${#numbers.formatCurrency(order.tip)}"></span><br>
+    Amount Paid: <span th:text="${#numbers.formatCurrency(order.amountPaid)}"></span><br>
+    Payment:    <span th:text="${order.paymentType}"></span><br>
+    <br>
+
+    <h3>Pizza Details</h3>
+    <table th:unless="${order.details.isEmpty()}">
+        <tr>
+            <th>Qty</th>
+            <th>Pizza</th>
+            <th>Each</th>
+            <th>Total</th>
+        </tr>
+        <tr th:each="pizza : ${order.details}">
+            <td th:text="${pizza.quantity}"></td>
+            <td th:text="${pizza.description}"></td>
+            <td th:text="${#numbers.formatCurrency(pizza.priceEach)}"></td>
+            <td th:text="${#numbers.formatCurrency(pizza.totalPrice)}"></td>
+        </tr>
+    </table>
+
+    <div th:if="${order.details.isEmpty()}">
+        <p>No pizzas in this order.</p>
+    </div>
 </div>
 </body>
 </html>
