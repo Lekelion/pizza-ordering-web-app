@@ -92,6 +92,20 @@ public class CustomerOrder {
 
     public void computePrice() {
         // TODO: Step 3 - compute the total price for this order
+        subTotal = BigDecimal.ZERO;
+
+        // Calculate subtotal from all pizzas
+        for (CustomerPizza pizza : details) {
+            pizza.computePrice();
+            subTotal = subTotal.add(pizza.getTotalPrice());
+        }
+
+        // Calculate HST (15%)
+        hst = subTotal.multiply(BigDecimal.valueOf(0.15))
+                .setScale(2, RoundingMode.HALF_UP);
+
+        // Calculate grand total
+        grandTotal = subTotal.add(hst).setScale(2, RoundingMode.HALF_UP);
         System.out.println("computePrice");
     }
 

@@ -60,6 +60,15 @@ public class CustomerPizza {
 
     public BigDecimal computePrice() {
         // TODO: Step 3 - compute the total price for this record
+        if (pizzaSize == null || pizzaCrust == null) {
+            return BigDecimal.ZERO;
+        }
+
+        // Price = Quantity * (Size.price + Crust.price)
+        BigDecimal basePrice = pizzaSize.getPrice().add(pizzaCrust.getPrice());
+        priceEach = basePrice;
+        totalPrice = basePrice.multiply(BigDecimal.valueOf(quantity));
+
         return totalPrice;
     }
 
