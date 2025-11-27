@@ -18,13 +18,40 @@
         Order #:<span th:text="*{id}"></span>
         </div>
         <div>
-            <label class="label">Tip:</label>
+            <label>Sub Total: <span th:text="${#numbers.formatCurrency(order.subTotal)}"></span></label>
         </div>
+        <div>
+            <label>HST: <span th:text="${#numbers.formatCurrency(order.hst)}"></span></label>
+        </div>
+        <div>
+            <label>Grand Total: <span th:text="${#numbers.formatCurrency(order.grandTotal)}"></span></label>
+        </div>
+
+        <div>
+            <label class="label">Tip:</label>
+            <input type="number" th:field="*{tip}" step="0.01" min="0" required>
+            <span class="error" th:errors="*{tip}"></span>
+        </div>
+
         <div>
             <label class="label">Payment:</label>
+            <select th:field="*{paymentType}" required>
+                <option value="">Select Payment</option>
+                <option th:each="pt : ${PaymentTypes}"
+                        th:value="${pt}"
+                        th:text="${pt}"></option>
+            </select>
+            <span class="error" th:errors="*{paymentType}"></span>
         </div>
+
         <div>
             <label class="label">Delivery:</label>
+            <select th:field="*{orderType}" required>
+                <option value="">Select Type</option>
+                <option th:each="ot : ${OrderTypes}"
+                        th:value="${ot}"
+                        th:text="${ot}"></option>
+            </select>
         </div>
         <br>
         <input type="submit" value="Submit your order">

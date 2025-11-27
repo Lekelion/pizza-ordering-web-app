@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pizzaTime.entities.*;
 import pizzaTime.services.LoginService;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -243,6 +244,15 @@ public class OrderController {
         System.out.println("confirm POST, order=" + order);
 
         //TODO: Step 6 - add validation checks
+        if (order.getTip().compareTo(BigDecimal.ZERO) < 0) {
+            result.rejectValue("tip", "negative", "Tip cannot be negative");
+        }
+
+        if (order.getOrderType() == CustomerOrder.OrderType.DELIVERY &&
+                order.getPaymentType() == CustomerOrder.PaymentType.CASH) {
+            result.rejectValue("paymentType", "invalid", "Cannot select CASH & DELIVERY");
+        }
+
 
         if (result.hasErrors()) {
             System.out.println("  not valid");
@@ -255,6 +265,12 @@ public class OrderController {
 
         CustomerOrder dbOrder = findOrderEdit(model, order.getId());
         // TODO: Step 6 - update the order in the database
+        dbOrder.setOrderStatus(CustomerOrder.OrderStatus.SUBMITTED);
+        dbOrder.setTip(order.getTip());
+        dbOrder.setOrderType(order.getOrderType());
+        dbOrder.setPaymentType(order.getPaymentType());
+        dbOrder.setAmountPaid(dbOrder.getGrandTotal()); // Assuming full payment
+
         dbOrder.computePrice();
         dbOrder.computePickupTime();
 
