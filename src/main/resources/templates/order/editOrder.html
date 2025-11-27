@@ -16,6 +16,17 @@
             <th>Pizza</th>
             <th>Each</th>
             <th>Total</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="pizza : ${order.details}">
+            <td th:text="${pizza.quantity}"></td>
+            <td th:text="${pizza.description}"></td>
+            <td th:text="${#numbers.formatCurrency(pizza.priceEach)}"></td>
+            <td th:text="${#numbers.formatCurrency(pizza.totalPrice)}"></td>
+            <td>
+                <a th:href="@{/order/{o}/editPizza/{n}(o=${order.id}, n=${pizza.number})}">Change</a>
+                <a th:href="@{/order/{o}/deletePizza/{n}(o=${order.id}, n=${pizza.number})}">Remove</a>
+            </td>
         </tr>
     </table>
     <br>
@@ -23,6 +34,14 @@
         <button>Add a Pizza</button>
     </a>
     <br><br>
+    <div th:unless="${order.details.isEmpty()}">
+        <h3>Order Summary</h3>
+        <table>
+            <tr><td>Sub Total:</td><td th:text="${#numbers.formatCurrency(order.subTotal)}"></td></tr>
+            <tr><td>HST:</td><td th:text="${#numbers.formatCurrency(order.hst)}"></td></tr>
+            <tr><td>Grand Total:</td><td th:text="${#numbers.formatCurrency(order.grandTotal)}"></td></tr>
+        </table>
+    </div>
     <br>
     <a th:href="@{/order/{o}/confirm (o=${order.id})}" th:unless="${order.pizzaCount == 0}">
         <button>Checkout</button>

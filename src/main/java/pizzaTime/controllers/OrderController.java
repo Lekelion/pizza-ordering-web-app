@@ -136,6 +136,9 @@ public class OrderController {
         System.out.println("edit pizza POST, p=" + pizza);
 
         //TODO: Step 4a - add validation for Quantity >= 1
+        if (pizza.getQuantity() < 1) {
+            result.rejectValue("quantity", "invalid", "Quantity must be at least 1");
+        }
 
         if (result.hasErrors()) {
             System.out.println("  not valid");
@@ -152,6 +155,28 @@ public class OrderController {
         // 1 Adding the first pizza on a new order (OrderID = 0)
         // 2 Adding a new pizza to an existing order (PizzaID = 0)
         // 3 Editing a pizza on an existing order
+        if (id == 0) {
+            // Case 1: Adding first pizza to new order
+            order = new CustomerOrder();
+            order.setCustomer(c);
+            order.addPizza(pizza);
+        } else {
+            // Case 2 & 3: Existing order
+            order = findOrderEdit(model, id);
+
+            if (pizza.getId() == 0) {
+                // Case 2: Adding new pizza to existing order
+                order.addPizza(pizza);
+            } else {
+                // Case 3: Editing existing pizza
+                CustomerPizza existingPizza = order.getPizzaById(pizza.getId());
+                if (existingPizza != null) {
+                    existingPizza.updateFrom(pizza);
+                } else {
+                    throw new Exception("Pizza not found in order");
+                }
+            }
+        }
 
         order.computePrice();
 
@@ -159,6 +184,7 @@ public class OrderController {
 
         // we always save through order, to ensure database price fields are accurate
 //        orderRepo.save(order);
+        orderRepo.save(order);
 
         // re-direct is required to change URL in address bar
         return "redirect:/order/" + order.getId() + "/edit";
@@ -177,9 +203,20 @@ public class OrderController {
 
         //TODO: Step 5 - complete deletePizza() method
         // when the LAST pizza in an order is removed, delete the order
+        order.getDetails().remove(p);
 
-        // re-direct is required to change URL in address bar
-        return "redirect:/order/" + order.getId() + "/edit";
+        if (order.getDetails().isEmpty()) {
+            // Case: Last pizza removed - delete the entire order
+            orderRepo.delete(order);
+            return "redirect:/";
+        } else {
+            // Case: Still pizzas remaining - update order
+            order.computePrice();
+            orderRepo.save(order);
+
+            // re-direct is required to change URL in address bar
+            return "redirect:/order/" + order.getId() + "/edit";
+        }
     }
 
     @GetMapping("/{id}/confirm")
